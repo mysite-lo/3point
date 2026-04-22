@@ -117,13 +117,6 @@
   const REDIRECT_URL = "https://google.com";
 
   const translations = {
-    uk: {
-      title: "Щоб отримати доступ до посилання,<br>виконайте наступні<br>2 прості кроки:",
-      step1: 'Натисніть на меню "..."<br>у правому верхньому куті',
-      step2: 'Оберіть "Відкрити в браузері"',
-      btn: "Я відкрив у браузері",
-      pageTitle: "Доступ до посилання"
-    },
     en: {
       title: "To access the link,<br>follow these<br>2 simple steps:",
       step1: 'Tap the "..." menu<br>in the top right corner',
@@ -137,15 +130,107 @@
       step2: 'Wählen Sie "Im Browser öffnen"',
       btn: "Ich habe es im Browser geöffnet",
       pageTitle: "Zugriff auf den Link"
+    },
+    uk: {
+      title: "Щоб отримати доступ до посилання,<br>виконайте наступні<br>2 прості кроки:",
+      step1: 'Натисніть на меню "..."<br>у правому верхньому куті',
+      step2: 'Оберіть "Відкрити в браузері"',
+      btn: "Я відкрив у браузері",
+      pageTitle: "Доступ до посилання"
+    },
+    pl: {
+      title: "Aby uzyskać dostęp do linku,<br>wykonaj te<br>2 proste kroki:",
+      step1: 'Kliknij menu "..."<br>w prawym górnym rogu',
+      step2: 'Wybierz "Otwórz w przeglądarce"',
+      btn: "Otworzyłem w przeglądarce",
+      pageTitle: "Dostęp do linku"
+    },
+    fr: {
+      title: "Pour accéder au lien,<br>suivez ces<br>2 étapes simples :",
+      step1: 'Appuyez sur le menu "..."<br>en haut à droite',
+      step2: 'Sélectionnez "Ouvrir dans le navigateur"',
+      btn: "Je l’ai ouvert dans le navigateur",
+      pageTitle: "Accès au lien"
+    },
+    it: {
+      title: "Per accedere al link,<br>segui questi<br>2 semplici passaggi:",
+      step1: 'Tocca il menu "..."<br>in alto a destra',
+      step2: 'Seleziona "Apri nel browser"',
+      btn: "L’ho aperto nel browser",
+      pageTitle: "Accesso al link"
+    },
+    es: {
+      title: "Para acceder al enlace,<br>sigue estos<br>2 simples pasos:",
+      step1: 'Toca el menú "..."<br>en la esquina superior derecha',
+      step2: 'Selecciona "Abrir en el navegador"',
+      btn: "Lo abrí en el navegador",
+      pageTitle: "Acceso al enlace"
+    },
+    pt: {
+      title: "Para acessar o link,<br>siga estes<br>2 passos simples:",
+      step1: 'Toque no menu "..."<br>no canto superior direito',
+      step2: 'Selecione "Abrir no navegador"',
+      btn: "Abri no navegador",
+      pageTitle: "Acesso ao link"
+    },
+    nl: {
+      title: "Om toegang te krijgen tot de link,<br>volg deze<br>2 eenvoudige stappen:",
+      step1: 'Tik op het menu "..."<br>rechtsboven',
+      step2: 'Selecteer "Openen in browser"',
+      btn: "Ik heb het in de browser geopend",
+      pageTitle: "Toegang tot de link"
+    },
+    sv: {
+      title: "För att få tillgång till länken,<br>följ dessa<br>2 enkla steg:",
+      step1: 'Tryck på menyn "..."<br>uppe till höger',
+      step2: 'Välj "Öppna i webbläsaren"',
+      btn: "Jag öppnade i webbläsaren",
+      pageTitle: "Tillgång till länken"
+    },
+    no: {
+      title: "For å få tilgang til lenken,<br>følg disse<br>2 enkle trinnene:",
+      step1: 'Trykk på "..." menyen<br>øverst til høyre',
+      step2: 'Velg "Åpne i nettleser"',
+      btn: "Jeg åpnet i nettleser",
+      pageTitle: "Tilgang til lenken"
+    },
+    da: {
+      title: "For at få adgang til linket,<br>følg disse<br>2 enkle trin:",
+      step1: 'Tryk på menuen "..."<br>øverst til højre',
+      step2: 'Vælg "Åbn i browser"',
+      btn: "Jeg åbnede i browser",
+      pageTitle: "Adgang til link"
+    },
+    fi: {
+      title: "Päästäksesi linkkiin,<br>noudata näitä<br>2 yksinkertaista vaihetta:",
+      step1: 'Napauta "..." valikkoa<br>yläkulmassa',
+      step2: 'Valitse "Avaa selaimessa"',
+      btn: "Avasin selaimessa",
+      pageTitle: "Pääsy linkkiin"
+    },
+    cs: {
+      title: "Pro přístup k odkazu,<br>postupujte podle těchto<br>2 jednoduchých kroků:",
+      step1: 'Klikněte na menu "..."<br>vpravo nahoře',
+      step2: 'Vyberte "Otevřít v prohlížeči"',
+      btn: "Otevřel jsem v prohlížeči",
+      pageTitle: "Přístup k odkazu"
+    },
+    tr: {
+      title: "Bağlantıya erişmek için,<br>şu<br>2 basit adımı izleyin:",
+      step1: '"..." menüsüne dokunun<br>sağ üst köşede',
+      step2: '"Tarayıcıda aç" seçin',
+      btn: "Tarayıcıda açtım",
+      pageTitle: "Bağlantıya erişim"
     }
   };
 
   function detectLanguage() {
-    const lang = navigator.language || navigator.userLanguage;
+    const lang = (navigator.language || "").toLowerCase();
+    const short = lang.split("-")[0];
 
-    if (lang.startsWith("de")) return "de";
-    if (lang.startsWith("en")) return "en";
-    return "uk"; // дефолт
+    if (translations[short]) return short;
+
+    return "en"; // ✅ дефолт тепер англійська
   }
 
   function applyTranslations() {
