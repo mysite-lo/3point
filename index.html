@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>Доступ до посилання</title>
+  <title id="pageTitle">Доступ до посилання</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <style>
@@ -42,9 +42,6 @@
       animation: slideUp 0.5s ease;
     }
 
-    .step:nth-child(2) { animation-delay: 0.2s; }
-    .step:nth-child(3) { animation-delay: 0.4s; }
-
     .icon {
       width: 40px;
       height: 40px;
@@ -79,7 +76,6 @@
       animation: pulse 1.5s infinite;
     }
 
-    /* Анімації */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -100,37 +96,68 @@
 <body>
 
 <div class="container">
-  <h1>
-    Щоб отримати доступ до посилання,<br>
-    виконайте наступні<br>
-    2 прості кроки:
-  </h1>
+  <h1 id="title"></h1>
 
   <div class="step">
     <div class="icon">👆</div>
-    <div class="text">
-      Натисніть на меню "..."<br>
-      у правому верхньому куті
-    </div>
+    <div class="text" id="step1"></div>
   </div>
 
   <div class="step">
     <div class="icon">🌐</div>
-    <div class="text">
-      Оберіть "Відкрити в браузері"
-    </div>
+    <div class="text" id="step2"></div>
   </div>
 
-  <!-- КНОПКА -->
   <div id="openBtnWrapper">
-    <button onclick="goToOffer()">
-      Я відкрив у браузері
-    </button>
+    <button id="btn" onclick="goToOffer()"></button>
   </div>
 </div>
 
 <script>
-  const REDIRECT_URL = "https://google.com"; // ← заміни на своє
+  const REDIRECT_URL = "https://google.com";
+
+  const translations = {
+    uk: {
+      title: "Щоб отримати доступ до посилання,<br>виконайте наступні<br>2 прості кроки:",
+      step1: 'Натисніть на меню "..."<br>у правому верхньому куті',
+      step2: 'Оберіть "Відкрити в браузері"',
+      btn: "Я відкрив у браузері",
+      pageTitle: "Доступ до посилання"
+    },
+    en: {
+      title: "To access the link,<br>follow these<br>2 simple steps:",
+      step1: 'Tap the "..." menu<br>in the top right corner',
+      step2: 'Select "Open in browser"',
+      btn: "I opened it in browser",
+      pageTitle: "Access to the link"
+    },
+    de: {
+      title: "Um auf den Link zuzugreifen,<br>folgen Sie diesen<br>2 einfachen Schritten:",
+      step1: 'Tippen Sie auf das "..." Menü<br>oben rechts',
+      step2: 'Wählen Sie "Im Browser öffnen"',
+      btn: "Ich habe es im Browser geöffnet",
+      pageTitle: "Zugriff auf den Link"
+    }
+  };
+
+  function detectLanguage() {
+    const lang = navigator.language || navigator.userLanguage;
+
+    if (lang.startsWith("de")) return "de";
+    if (lang.startsWith("en")) return "en";
+    return "uk"; // дефолт
+  }
+
+  function applyTranslations() {
+    const lang = detectLanguage();
+    const t = translations[lang];
+
+    document.getElementById("title").innerHTML = t.title;
+    document.getElementById("step1").innerHTML = t.step1;
+    document.getElementById("step2").innerHTML = t.step2;
+    document.getElementById("btn").innerText = t.btn;
+    document.getElementById("pageTitle").innerText = t.pageTitle;
+  }
 
   function goToOffer() {
     window.location.href = REDIRECT_URL;
@@ -141,11 +168,12 @@
     return /TikTok|BytedanceWebview|Instagram|FBAN|FBAV|WebView|wv/i.test(ua);
   }
 
-  // Якщо користувач у ЗОВНІШНЬОМУ браузері → показуємо кнопку
+  applyTranslations();
+
   if (!isInAppBrowser()) {
     setTimeout(() => {
       document.getElementById("openBtnWrapper").style.display = "block";
-    }, 1200); // невелика затримка для "вау ефекту"
+    }, 1200);
   }
 </script>
 
